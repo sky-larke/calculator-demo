@@ -1,8 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Calculator</title>
+  <script>
+    // Comments are like this here
+    function calculate(event) {
+      event.preventDefault();
+
+      // this is where you get all your variables out of the form
+      
+      // const VAR_NAME = Number(document.forms["calcForm"][<name>].value)
+      // to get the value
+      
+      // name is literally the name field. 
+      // so if it's <input type="number" name="cat">
+      // then here, if I do
+      // const cat = document.forms["calcForm"]["cat"].value 
+      // then it gets me value of cat. 
+      
+      const form = document.forms["calcForm"];
+      const num = Number(form["num"].value); // you only need to do Number() for numbers. 
+      const multiplier = Number(form["multiplier"].value);
+      const yes = form["yes"].checked;
+      const selectedOption = form["color"].value; // the dropdown
+
+      // this is how you yell at people
+      if (isNaN(num) || isNaN(multiplier)) {
+        // put everything in here to yell at people for bad inputs like text
+        alert("Please enter valid numbers");  
+        return;
+      }
+
+      if (num < 0) {
+        alert("Num cannot be less than 0"); // put all the ones where you ban neg here
+        return;
+      }
+
+      // Example formula: result = age * multiplier + IF(yes, THEN +20) + 10
+      // SUGGESTION: divide this into variables. if you have many conditions, force them into variables
+      // you want this 'result' equation to have NO MATH OTHER THAN ARITHMETIC. 
+      
+      // IF yes, then 20, else 0
+      // yes ? 20 : 0
+      const yesAddition = yes ? 20 : 0;
+      
+      // dropdown
+      const colorAddition = (() => {
+        switch (selectedOption) {
+          case "red":
+            return 1;
+          case "blue":
+            return 2;
+          case "green":
+            return 3;
+          default:
+            return 0;
+        }
+      })();
+      
+      const result = num * multiplier + yesAddition + colorAddition + 10;
+
+      // Show the result in the result div
+      document.getElementById("result").textContent = "Result: " + result;
+    }
+    
+  </script>
 </head>
+  
 <body>
+  <!-- This is a comment -->
+  <h1>Local Form</h1>
+  <!-- This is the form -->
+  <!-- Fun fact: <br> is a line break -->
+  
+  <form name="calcForm" onsubmit="calculate(event)">
+    <label>Num: <input type="number" name="num" /></label><br><br>
+    <label>Multiplier: <input type="number" name="multiplier" /></label><br><br>
+    
+    <input type="checkbox" name="yes" /><br><br>
+    
+    <select name="color" id="color">
+      <option value="">--Select--</option>
+      <option value="red">Red</option>
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+    </select><br><br>
+    
+    <button type="submit">Calculate</button>
+  </form>
+
+  <div id="result" style="margin-top:20px; font-weight:bold;"></div>
 </body>
 </html>
