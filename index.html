@@ -62,13 +62,13 @@
       const result = num * multiplier + yesAddition + colorAddition + 10;
 
       // Show the result in the result div
-      document.getElementById("result").textContent = "Result: " + result;
+      document.getElementById("result").textContent = "Result: $" + result;
     }
 
     function calculate2(event) {
       event.preventDefault(); // prevent page reload
       const result = 0;
-      document.getElementById("result2").textContent = "Result: " + result;
+      document.getElementById("result2").textContent = "Result: $" + result;
     }
 
     function handleServiceChange() {
@@ -120,7 +120,7 @@
 
       <button type="submit">Calculate</button>
     </form>
-    <span>$<div id="result" style="margin-top:20px; font-weight:bold;"></div></span>
+    <div id="result" style="margin-top:20px; font-weight:bold;"></div>
   </div>
 
   <!-- This is the second form -->
@@ -129,7 +129,7 @@
       <!-- Options go here. -->
       <button type="submit">Calculate</button>
     </form>
-    <span>$<div id="result2" style="margin-top:20px; font-weight:bold;"></div></span>
+    <div id="result2" style="margin-top:20px; font-weight:bold;"></div>
   </div>
 
 </body>
