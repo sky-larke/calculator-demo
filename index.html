@@ -4,20 +4,21 @@
   <title>Calculator</title>
   <script>
     // Comments are like this here
+
+    // this is where you get all your variables out of the form
+    
+    // const VAR_NAME = Number(document.forms["calcForm"][<name>].value)
+    // to get the value
+    
+    // name is literally the name field. 
+    // so if it's <input type="number" name="cat">
+    // then here, if I do
+    // const cat = document.forms["calcForm"]["cat"].value 
+    // then it gets me value of cat. 
+
     function calculate(event) {
       event.preventDefault();
 
-      // this is where you get all your variables out of the form
-      
-      // const VAR_NAME = Number(document.forms["calcForm"][<name>].value)
-      // to get the value
-      
-      // name is literally the name field. 
-      // so if it's <input type="number" name="cat">
-      // then here, if I do
-      // const cat = document.forms["calcForm"]["cat"].value 
-      // then it gets me value of cat. 
-      
       const form = document.forms["calcForm"];
       const num = Number(form["num"].value); // you only need to do Number() for numbers. 
       const multiplier = Number(form["multiplier"].value);
@@ -32,7 +33,7 @@
       }
 
       if (num < 0) {
-        alert("Num cannot be less than 0"); // put all the ones where you ban neg here
+        alert("Num cannot be less than 0"); // put all the options where you ban neg here
         return;
       }
 
@@ -63,32 +64,73 @@
       // Show the result in the result div
       document.getElementById("result").textContent = "Result: " + result;
     }
-    
+
+    function calculate2(event) {
+      event.preventDefault(); // prevent page reload
+      const result = 0;
+      document.getElementById("result2").textContent = "Result: " + result;
+    }
+
+    function handleServiceChange() {
+      const selected = document.getElementById("serviceSelect").value;
+
+      // hide both first
+      document.getElementById("form1Wrapper").style.display = "none";
+      document.getElementById("form2Wrapper").style.display = "none";
+
+      // show selected
+      switch (selected) {
+        case "service1":
+        document.getElementById("form1Wrapper").style.display = "block";
+        case "service2": 
+        document.getElementById("form2Wrapper").style.display = "block";
+      }
+    }
   </script>
 </head>
   
 <body>
   <!-- This is a comment -->
   <h1>Local Form</h1>
+
+  <!-- Service Selector -->
+  <label>Select Service:</label>
+  <select id="serviceSelect" onchange="handleServiceChange()">
+    <option value="">-- Choose Service --</option>
+    <option value="service1">Service 1</option>
+    <option value="service2">Service 2</option>
+  </select>
+  <br><br>
+
   <!-- This is the form -->
   <!-- Fun fact: <br> is a line break -->
-  
-  <form name="calcForm" onsubmit="calculate(event)">
-    <label>Num: <input type="number" name="num" min="0" max="1000" /></label><br><br>
-    <label>Multiplier: <input type="number" name="multiplier" min="1" max="100" /></label><br><br>
+  <div id="form1Wrapper" style="display:none">
+    <form name="calcForm" onsubmit="calculate(event)">
+      <label>Num: <input type="number" name="num" min="0" max="1000" step="0.01"/></label><br><br>
+      <label>Multiplier: <input type="number" name="multiplier" min="1" max="100" step="0.01"/></label><br><br>
 
-    <label>Yes: </label><input type="checkbox" name="yes" /><br><br>
-    
-    <label>Select: </label><select name="color" id="color">
-      <option value="">--Select--</option>
-      <option value="red">Red (1)</option>
-      <option value="blue">Blue (2)</option>
-      <option value="green">Green (3)</option>
-    </select><br><br>
-    
-    <button type="submit">Calculate</button>
-  </form>
+      <label>Yes: </label><input type="checkbox" name="yes" /><br><br>
 
-  <div id="result" style="margin-top:20px; font-weight:bold;"></div>
+      <label>Select: </label><select name="color" id="color">
+        <option value="">--Select--</option>
+        <option value="red">Red (1.00)</option>
+        <option value="blue">Blue (2.00)</option>
+        <option value="green">Green (3.00)</option>
+      </select><br><br>
+
+      <button type="submit">Calculate</button>
+    </form>
+    <span>$<div id="result" style="margin-top:20px; font-weight:bold;"></div></span>
+  </div>
+
+  <!-- This is the second form -->
+  <div id="form2Wrapper" style="display:none">
+    <form name="form2" onsubmit="calculate2(event)">
+      <!-- Options go here. -->
+      <button type="submit">Calculate</button>
+    </form>
+    <span>$<div id="result2" style="margin-top:20px; font-weight:bold;"></div></span>
+  </div>
+
 </body>
 </html>
